@@ -55,3 +55,7 @@ echo "Init bench version 13" | lolcat
 
 bench init frappe-bench --frappe-branch version-13 
 
+echo "change mysql password" | lolcat
+
+sudo mysql -uroot -pPASSWORD -Bse "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY '<password>' with grant option;"
+
