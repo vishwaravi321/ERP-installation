@@ -2,7 +2,7 @@ sudo apt update -y
 
 sudo apt upgrade -y  
 
-sudo apt install lolcat
+sudo apt install lolcat -y
 
 echo "Installing nvm"
 
