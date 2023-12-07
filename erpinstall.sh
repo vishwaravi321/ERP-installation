@@ -4,7 +4,7 @@ sudo apt upgrade -y
 
 sudo apt install lolcat -y
 
-echo "Installing nvm"
+echo "Installing nvm" | lolcat
 
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
