@@ -42,5 +42,5 @@ sudo service mysql restart
 
 echo "Init bench version 13" | lolcat
 
-bench init frappe-bench --frappe-branch version-13 
+bench init ~/frappe-bench --frappe-branch version-13 
 
