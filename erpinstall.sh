@@ -8,9 +8,13 @@ echo "Installing nvm" | lolcat
 
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-source ~/.profile
+source ~/.bashrc
 
 nvm install --lts
+
+nvm use --lts
+
+nvm alias default $(node --version)
 
 echo "Installing dependencies" | lolcat
 
@@ -22,7 +26,7 @@ sudo npm install -g yarn
 
 echo "Installing frappe-bench using pip" | lolcat
 
-pip3 install frappe-bench
+sudo -H pip3 install frappe-bench
 
 echo "Mysql_secure_installation" | lolcat
 
