@@ -102,4 +102,13 @@ while true;do
         printf "\033[38;2;255;0;255mPlease provide a valid path\033[0m\n"
     fi
 done
-  
+
+
+if ! cd $full_bench_dir && bench restart; then
+    cd $full_bench_dir && sudo bench setup production $USER
+    printf "\033[38;2;255;0;255mSetted PRoduction\033[0m\n"
+    printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
+
+else
+    printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
+fi
