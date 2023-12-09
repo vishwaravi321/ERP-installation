@@ -90,7 +90,7 @@ while true;do
                         printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
                 fi
         done 
-        printf "\033[38;2;255;0;255mPlease use 'sudo bench setup production $USER before creating a site'\033[0m\n"
+        printf "\033[38;2;255;0;255mPlease use 'sudo bench setup production $USER' before creating a site\033[0m\n"
         printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
         break       
     else
