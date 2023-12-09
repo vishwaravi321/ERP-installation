@@ -1,6 +1,5 @@
 # Frappe Bench Setup Script
 
----
 
 This script automates the setup process for Frappe Bench, a full-stack web application framework.
 
@@ -43,9 +42,11 @@ Before running the script, make sure you have the following:
 
 4. Follow the on-screen prompts and agree to the terms.
 
-## Important Notes
+## ⚠️⚠️Important Notes ⚠️⚠️
 
-- This script uses `sudo` for certain operations. Review the script before execution.
+- This script uses `sudo` for certain operations. 
+- Review the script before execution.
+- Use with caution.
 - Ensure that you have the necessary permissions to execute the script.
 - Customize the script as needed based on your requirements.
 
