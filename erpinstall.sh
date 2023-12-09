@@ -61,50 +61,41 @@ while true;do
         full_bench_dir=$frappe_dir$bench_dir
         printf "\033[38;2;255;0;255mInstalling Bench on $full_bench_dir\033[0m\n"
         while true;do
-        read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
-        frappe_version=${frappe_version:-version-14}
-            if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
-                printf "\033[38;2;255;0;255mYou have choose $frappe_version\033[0m\n"
-                bench init $full_bench_dir --frappe-branch $frappe_version
-            
-                printf "\033[38;2;255;0;255mOptionals\033[0m\n"
-                read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
-                if [[ $apps ]]
-                then
-                    printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
-                    for i in $(echo "$apps" | sed 's/,/ /g');
-                    do
-                        printf "\033[38;2;255;0;255mGetting $i\033[0m\n"
-                        cd $full_bench_dir && bench get-app $i --branch $frappe_version
-                        printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
-                    done
-                    printf "\033[38;2;255;0;255mFinished Additional Apps\033[0m\n"
+            read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
+            frappe_version=${frappe_version:-version-14}
+                if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
+                    printf "\033[38;2;255;0;255mYou have choose $frappe_version\033[0m\n"
+                    bench init $full_bench_dir --frappe-branch $frappe_version
+
+                    printf "\033[38;2;255;0;255mOptionals\033[0m\n"
+                    read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
+                    if [[ $apps ]]
+                    then
+                        printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
+                        for i in $(echo "$apps" | sed 's/,/ /g');
+                        do
+                            printf "\033[38;2;255;0;255mGetting $i\033[0m\n"
+                            cd $full_bench_dir && bench get-app $i --branch $frappe_version
+                            printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
+                        done
+                        printf "\033[38;2;255;0;255mFinished Additional Apps\033[0m\n"
+                    else
+                        printf "\033[38;2;255;0;255mNo Additional Apps\033[0m\n"
+                    fi
+                    printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
+                    sudo chown -R $USER:$USER /home/$USER
+                    sudo chmod -R 755 /home/$USER
+                    break
                 else
-                    printf "\033[38;2;255;0;255mNo Additional Apps\033[0m\n"
+                        printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
                 fi
-                printf "\033[38;2;255;0;255mSetting Bench to production\033[0m\n"
-                cd $full_bench_dir && sudo bench setup production $USER
-                printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
-                sudo chown -R $USER:$USER /home/$USER
-                sudo chmod -R 755 /home/$USER
                 break
-            else
-                    printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
-            fi
-            break
         done 
+        printf "\033[38;2;255;0;255mPlease use 'sudo bench setup production $USER before creating a site'\033[0m\n"
+        printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
         break       
     else
         printf "\033[38;2;255;0;255mPlease provide a valid path\033[0m\n"
     fi
 done
 
-
-if ! cd $full_bench_dir && bench restart; then
-    cd $full_bench_dir && sudo bench setup production $USER
-    printf "\033[38;2;255;0;255mSetted PRoduction\033[0m\n"
-    printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
-
-else
-    printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
-fi
