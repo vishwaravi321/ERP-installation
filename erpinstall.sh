@@ -57,44 +57,43 @@ printf "\033[38;2;255;0;255mInit bench\033[0m\n"
 while true;do
     read -p "Please provide the absolute path for frappe DIR(default: /home/$USER/) :" frappe_dir
     frappe_dir=${frappe_dir:-/home/$USER/}
+    printf "\033[38;2;255;0;255mChoosing $frappe_dir\033[0m\n"
     if path_exists "$frappe_dir"; then
         read -p "Please provide Bench project DIR(default: frappe-bench):" bench_dir
         bench_dir=${bench_dir:-frappe-bench}
         full_bench_dir=$frappe_dir$bench_dir
+        printf "\033[38;2;255;0;255mInstalling Bench on $full_bench_dir\033[0m\n"
         while true;do
-        read -p "Please provide the version to init[version-13/version-14/version-15](default:version-14):" frappe_version
+        read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
         frappe_version=${frappe_version:-version-14}
-            case "$frappe_version" in
-                "version-13" | "version-14" | "version-15")
-                    bench init $full_bench_dir --frappe-branch $frappe_version
-                    if [[ $frappe_version != 'version-13' ]]; then
-                        printf "\033[38;2;255;0;255mOptionals\033[0m\n"
-                        read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
-                        if [[ $apps ]]
-                        then
-                            printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
-                            for i in $(echo "$apps" | sed 's/,/ /g');
-                            do
-                                printf "\033[38;2;255;0;255mGetting $i\033[0m\n"
-                                cd $full_bench_dir && bench get-app $i --branch $frappe_version
-
-                                printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
-                            done
-                            printf "\033[38;2;255;0;255mFinished Additional Apps\033[0m\n"
-                        else
-                            printf "\033[38;2;255;0;255mNo Additional Apps\033[0m\n"
-                        fi
-                    fi
-                    printf "\033[38;2;255;0;255mSetting Bench to production\033[0m\n"
-                    cd $full_bench_dir && sudo bench setup production $USER
-                    printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
-                    sudo chown -R $USER:$USER /home/$USER
-                    sudo chmod -R 755 /home/$USER
-                    break
-                    ;;
-                *)
+            if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
+                printf "\033[38;2;255;0;255mYou have choose $frappa_version\033[0m\n"
+                bench init $full_bench_dir --frappe-branch $frappe_version
+            
+                printf "\033[38;2;255;0;255mOptionals\033[0m\n"
+                read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
+                if [[ $apps ]]
+                then
+                    printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
+                    for i in $(echo "$apps" | sed 's/,/ /g');
+                    do
+                        printf "\033[38;2;255;0;255mGetting $i\033[0m\n"
+                        cd $full_bench_dir && bench get-app $i --branch $frappe_version
+                        printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
+                    done
+                    printf "\033[38;2;255;0;255mFinished Additional Apps\033[0m\n"
+                else
+                    printf "\033[38;2;255;0;255mNo Additional Apps\033[0m\n"
+                fi
+                printf "\033[38;2;255;0;255mSetting Bench to production\033[0m\n"
+                cd $full_bench_dir && sudo bench setup production $USER
+                printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
+                sudo chown -R $USER:$USER /home/$USER
+                sudo chmod -R 755 /home/$USER
+                break
+            else
                     printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
-            esac
+            fi
             break
         done 
         break       
