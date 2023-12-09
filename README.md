@@ -24,19 +24,19 @@ Before running the script, make sure you have the following:
 1. Clone the repository or download the script:
 
    ```bash
-   git clone https://github.com/your-username/frappe-bench-setup.git
+   git clone https://github.com/vishwaravi321/ERP-installation.git
    ```
 
 2. Navigate to the script directory:
 
    ```bash
-   cd frappe-bench-setup
+   cd ERP-installation
    ```
 
 3. Run the script:
 
    ```bash
-   bash setup_script.sh
+   bash erpinstall.sh
    ```
 
 4. Follow the on-screen prompts and agree to the terms.
@@ -54,5 +54,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ---
 
 Feel free to contribute, report issues, or suggest improvements!
-```
 
