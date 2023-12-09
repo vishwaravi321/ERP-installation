@@ -16,6 +16,7 @@ sudo apt upgrade -y
 sudo apt install lolcat -y
 
 echo "Installing nvm" | lolcat
+printf "\033[38;2;0;255;255mInstalling nvm\033[0m\n"
 
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
@@ -62,13 +63,13 @@ sudo service mysql restart
 echo "Init bench" | lolcat
 
 while true;do
-    read -p "Please provide the absolute path for frappe DIR (default: /home/$USER/frappe-bench) :" frappe_dir
-    frappe_dir=${frappe_dir:-/home/$USER/frappe-bench}
+    read -p "Please provide the absolute path for frappe DIR (default: /home/$USER) :" frappe_dir
+    frappe_dir=${frappe_dir:-/home/$USER}
 
     if path_exist "$frappe_dir"; then
         read -p "Please provide the version to init[version-13/version-14/version-15]:" frappe_version
 
-        bench init $frappe_dir --frappe-branch $frappe_version
+        bench init $frappe_dir/frappe-bench --frappe-branch $frappe_version
 
         if [[ $frappe_version != 'version-13' ]]; then
             echo "Optionals" | lolcat 
