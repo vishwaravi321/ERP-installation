@@ -67,7 +67,7 @@ Here are some references that may be useful for understanding or extending this 
 4. [Yarn Package Manager](https://yarnpkg.com/)
 5. [Frappe Framework GitHub Repository](https://github.com/frappe/frappe)
 6. [MIT License](https://opensource.org/licenses/MIT)
-7. [Reference Repository](https://github.com/D-codE-Hub/Guide-to-Install-Frappe-ERPNext-in-Ubuntu-22.04-LTS.git): A helpful repository by `D-codE-Hub`` that served as a reference during the development of this project.
+7. [Reference Repository](https://github.com/D-codE-Hub/Guide-to-Install-Frappe-ERPNext-in-Ubuntu-22.04-LTS.git): A helpful repository by `D-codE-Hub` that served as a reference during the development of this project.
 
 Feel free to explore these resources for more information or detailed documentation.
 
