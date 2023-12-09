@@ -38,9 +38,6 @@ sudo apt install -y curl python3-dev python3-setuptools python3-pip virtualenv l
 printf "\033[38;2;255;0;255mInstalling Yarn \033[0m\n"
 sudo npm install -g yarn 
 
-printf "\033[38;2;255;0;255mInstalling Node SASS\033[0m\n"
-npm add node-sass
-
 printf "\033[38;2;255;0;255mInstalling frappe-bench using pip\033[0m\n"
 sudo -H pip3 install frappe-bench
 
