@@ -74,4 +74,10 @@ echo "Setting Bench to production"
 
 sudo bench setup production $USER
 
+echo "Changing Permissions" | lolcat
+
+sudo chown -R $USER:$USER /home/$USER
+
+sudo chmod -R 744 /home/$USER
+
 
