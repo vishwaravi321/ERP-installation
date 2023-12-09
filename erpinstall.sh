@@ -52,7 +52,7 @@ sudo service mysql restart
 
 printf "\033[38;2;255;0;255mInit bench\033[0m\n"
 while true;do
-    read -p "Please provide the absolute path for frappe DIR(default: /home/$USER/) :" frappe_dir
+    read -p "Please provide the absolute path for frappe DIR[NOTE: Don't forget to add / in the end](default: /home/$USER/) :" frappe_dir
     frappe_dir=${frappe_dir:-/home/$USER/}
     printf "\033[38;2;255;0;255mChoosing $frappe_dir\033[0m\n"
     if path_exists "$frappe_dir"; then
@@ -64,7 +64,7 @@ while true;do
         read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
         frappe_version=${frappe_version:-version-14}
             if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
-                printf "\033[38;2;255;0;255mYou have choose $frappa_version\033[0m\n"
+                printf "\033[38;2;255;0;255mYou have choose $frappe_version\033[0m\n"
                 bench init $full_bench_dir --frappe-branch $frappe_version
             
                 printf "\033[38;2;255;0;255mOptionals\033[0m\n"
