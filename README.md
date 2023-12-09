@@ -1,5 +1,7 @@
 # Frappe Bench Setup Script
 
+---
+
 This script automates the setup process for Frappe Bench, a full-stack web application framework.
 
 ## Disclaimer
@@ -51,7 +53,6 @@ Before running the script, make sure you have the following:
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
----
 
 Feel free to contribute, report issues, or suggest improvements!
 
