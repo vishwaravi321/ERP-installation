@@ -16,9 +16,10 @@ By running this script, you agree to use it responsibly and understand the poten
 
 Before running the script, make sure you have the following:
 
-- Linux environment
-- Internet connection
-- [curl](https://curl.se/) installed
+- Linux environment.
+- Internet connection.
+- [curl](https://curl.se/) installed.
+- [git](https://git-scm.com/) installed.
 
 ## Usage
 
