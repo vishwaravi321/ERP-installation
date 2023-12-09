@@ -28,6 +28,10 @@ echo "Installing Yarn" | lolcat
 
 sudo npm install -g yarn 
 
+echo "Installing Node SASS" | lolcat
+
+npm add node-sass
+
 echo "Installing frappe-bench using pip" | lolcat
 
 sudo -H pip3 install frappe-bench
@@ -50,7 +54,7 @@ read -p "Please provide the version to init[version-13/version-14/version-15]:" 
 
 bench init $fraappe_dir --frappe-branch $frappe_version
 
-echo "Optional" | lolcat 
+echo "Optionals" | lolcat 
 
 read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
 if [[ $apps ]]
@@ -58,20 +62,16 @@ then
     echo "Has Additional Apps" | lolcat
     for i in $(echo "$apps" | sed 's/,/ /g');
     do
-        echo "$i"; | lolcat
+        echo "Getting $i" | lolcat
         cd $fraappe_dir && bench get-app $i --branch $frappe_version
-        echo "completed" | 
+        echo "completed $i" | lolcat
     done
+    echo "Finished Additional Apps" | lolcat
 else
     echo "No Additional Apps" | lolcat
 
 echo "Setting Bench to production"
 
 sudo bench setup production $USER
-
-
-
-
-
 
 
