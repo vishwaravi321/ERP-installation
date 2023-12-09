@@ -87,7 +87,7 @@ while true;do
             else
                 echo "No Additional Apps" | lolcat
             fi
-
+        fi
         echo "Setting Bench to production"
 
         sudo bench setup production $USER
