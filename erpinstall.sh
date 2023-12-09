@@ -1,3 +1,14 @@
+
+
+
+path_exist(){
+    if [[ -e "$1" ]];then   
+        return 0
+    else 
+        return 1
+    fi
+}
+
 sudo apt update -y
 
 sudo apt upgrade -y  
@@ -49,35 +60,46 @@ echo "Restarting mysql" | lolcat
 sudo service mysql restart
 
 echo "Init bench" | lolcat
-read -p "Please provide the absolute path (/home/$USER/Public) for frappe DIR:" fraappe_dir
-read -p "Please provide the version to init[version-13/version-14/version-15]:" frappe_version
 
-bench init $fraappe_dir --frappe-branch $frappe_version
+while true;do
 
-echo "Optionals" | lolcat 
+    read -p "Please provide the absolute path for frappe DIR (default: /home/$USER/) :" frappe_dir
+    frappe_dir=${frappe_dir:-/home/$USER}
+    
+    if path_exist "$frappe_dir";then
+        read -p "Please provide the version to init[version-13/version-14/version-15]:" frappe_version
 
-read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
-if [[ $apps ]]
-then
-    echo "Has Additional Apps" | lolcat
-    for i in $(echo "$apps" | sed 's/,/ /g');
-    do
-        echo "Getting $i" | lolcat
-        cd $fraappe_dir && bench get-app $i --branch $frappe_version
-        echo "completed $i" | lolcat
-    done
-    echo "Finished Additional Apps" | lolcat
-else
-    echo "No Additional Apps" | lolcat
+        bench init $frappe_dir --frappe-branch $frappe_version
 
-echo "Setting Bench to production"
+        if [[ $frappe_version != 'version-13']];then
+            echo "Optionals" | lolcat 
 
-sudo bench setup production $USER
+            read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
+            if [[ $apps ]]
+            then
+                echo "Has Additional Apps" | lolcat
+                for i in $(echo "$apps" | sed 's/,/ /g');
+                do
+                    echo "Getting $i" | lolcat
+                    cd $frappe_dir && bench get-app $i --branch $frappe_version
+                    echo "completed $i" | lolcat
+                done
+                echo "Finished Additional Apps" | lolcat
+            else
+                echo "No Additional Apps" | lolcat
+            fi
 
-echo "Changing Permissions" | lolcat
+        echo "Setting Bench to production"
 
-sudo chown -R $USER:$USER /home/$USER
+        sudo bench setup production $USER
 
-sudo chmod -R 744 /home/$USER
+        echo "Changing Permissions" | lolcat
 
+        sudo chown -R $USER:$USER /home/$USER
 
+        sudo chmod -R 744 /home/$USER
+        break
+    else
+        echo "Path $frappe_dir does not exist.Please Provide a valid Path"
+    fi
+done
