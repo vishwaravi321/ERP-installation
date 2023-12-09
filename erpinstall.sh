@@ -27,7 +27,7 @@ printf "\033[38;2;255;0;255mInstalling Node LTS\033[0m\n"
 nvm install --lts
 nvm use --lts
 
-node_version = $(node --version)
+node_version=$(node --version)
 printf "\033[38;2;255;0;255mSetting $node_version as Default\033[0m\n"
 
 nvm alias default $node_version
