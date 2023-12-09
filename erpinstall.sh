@@ -22,9 +22,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source ~/.bashrc
+
+printf "\033[38;2;255;0;255mInstalling Node LTS\033[0m\n"
 nvm install --lts
 nvm use --lts
-nvm alias default $(node --version)
+
+node_version = $(node --version)
+printf "\033[38;2;255;0;255mSetting $node_version as Default\033[0m\n"
+
+nvm alias default $node_version
 
 printf "\033[38;2;255;0;255mInstalling Dependencies\033[0m\n"
 sudo apt install -y curl python3-dev python3-setuptools python3-pip virtualenv libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
@@ -46,8 +52,8 @@ cat sql_my.cnf | sudo tee -a /etc/mysql/my.cnf
 
 printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
 sudo service mysql restart
-printf "\033[38;2;255;0;255mInit bench\033[0m\n"
 
+printf "\033[38;2;255;0;255mInit bench\033[0m\n"
 read -p "Please provide the absolute path for frappe DIR(default: /home/$USER/) :" frappe_dir
 frappe_dir=${frappe_dir:-/home/$USER/}
 while true;do
@@ -56,11 +62,11 @@ while true;do
         bench_dir=${bench_dir:-frappe-bench}
         read -p "Please provide the version to init[version-13/version-14/version-15](default:version-14):" frappe_version
         frappe_version=${frappe_version:-version-14}
-
+        full_bench_dir=$frappe_dir$bench_dir
         while true;do
             case "$frappe_version" in
                 "version-13" | "version-14" | "version-15")
-                    bench init $frappe_dir$bench_dir --frappe-branch $frappe_version
+                    bench init $full_bench_dir --frappe-branch $frappe_version
                     if [[ $frappe_version != 'version-13' ]]; then
                         printf "\033[38;2;255;0;255mOptionals\033[0m\n"
                         read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
@@ -70,7 +76,7 @@ while true;do
                             for i in $(echo "$apps" | sed 's/,/ /g');
                             do
                                 printf "\033[38;2;255;0;255mGetting $i\033[0m\n"
-                                cd $frappe_dir && bench get-app $i --branch $frappe_version
+                                cd $full_bench_dir && bench get-app $i --branch $frappe_version
 
                                 printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
                             done
@@ -80,7 +86,7 @@ while true;do
                         fi
                     fi
                     printf "\033[38;2;255;0;255mSetting Bench to production\033[0m\n"
-                    cd $frappe_dir && sudo bench setup production $USER
+                    cd $full_bench_dir && sudo bench setup production $USER
                     printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
                     sudo chown -R $USER:$USER /home/$USER
                     sudo chmod -R 755 /home/$USER
