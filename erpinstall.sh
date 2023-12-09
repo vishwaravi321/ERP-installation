@@ -62,8 +62,8 @@ sudo service mysql restart
 echo "Init bench" | lolcat
 
 while true;do
-    read -p "Please provide the absolute path for frappe DIR (default: /home/$USER/) :" frappe_dir
-    frappe_dir=${frappe_dir:-/home/$USER}
+    read -p "Please provide the absolute path for frappe DIR (default: /home/$USER/frappe-bench) :" frappe_dir
+    frappe_dir=${frappe_dir:-/home/$USER/frappe-bench}
 
     if path_exist "$frappe_dir"; then
         read -p "Please provide the version to init[version-13/version-14/version-15]:" frappe_version
