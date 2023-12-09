@@ -54,16 +54,16 @@ printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
 sudo service mysql restart
 
 printf "\033[38;2;255;0;255mInit bench\033[0m\n"
-read -p "Please provide the absolute path for frappe DIR(default: /home/$USER/) :" frappe_dir
-frappe_dir=${frappe_dir:-/home/$USER/}
 while true;do
+    read -p "Please provide the absolute path for frappe DIR(default: /home/$USER/) :" frappe_dir
+    frappe_dir=${frappe_dir:-/home/$USER/}
     if path_exists "$frappe_dir"; then
         read -p "Please provide Bench project DIR(default: frappe-bench):" bench_dir
         bench_dir=${bench_dir:-frappe-bench}
-        read -p "Please provide the version to init[version-13/version-14/version-15](default:version-14):" frappe_version
-        frappe_version=${frappe_version:-version-14}
         full_bench_dir=$frappe_dir$bench_dir
         while true;do
+        read -p "Please provide the version to init[version-13/version-14/version-15](default:version-14):" frappe_version
+        frappe_version=${frappe_version:-version-14}
             case "$frappe_version" in
                 "version-13" | "version-14" | "version-15")
                     bench init $full_bench_dir --frappe-branch $frappe_version
