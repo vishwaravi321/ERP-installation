@@ -65,7 +65,7 @@ script(){
                 read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
                 frappe_version=${frappe_version:-version-14}
                     if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
-                        printf "\033[38;2;255;0;255mYou have choose $frappe_version\033[0m\n"
+                        printf "\033[38;2;255;0;255mYou have choosen $frappe_version\033[0m\n"
                         bench init $full_bench_dir --frappe-branch $frappe_version
 
                         printf "\033[38;2;255;0;255mOptionals\033[0m\n"
