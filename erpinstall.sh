@@ -60,7 +60,7 @@ while true;do
         while true;do
             case "$frappe_version" in
                 "version-13" | "version-14" | "version-15")
-                    bench init $frappe_dir --frappe-branch $frappe_version
+                    bench init $frappe_dir$bench_dir --frappe-branch $frappe_version
                     if [[ $frappe_version != 'version-13' ]]; then
                         printf "\033[38;2;255;0;255mOptionals\033[0m\n"
                         read -p "other apps(optional)[please split with comma(,) for multiple apps]:" apps
