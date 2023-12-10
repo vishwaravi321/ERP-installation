@@ -115,8 +115,22 @@ create_banner() {
     echo
 }
 
+show_important_notes() {
+    echo "============================================================================="
+    echo "⚠️⚠️ Important Notes ⚠️⚠️"
+    echo "This script uses 'sudo' for certain operations."
+    echo "Review the script before execution."
+    echo "Use with caution."
+    echo "Ensure that you have the necessary permissions to execute the script."
+    echo "This scipt has interactive mode."
+    echo "Please read and understand every prompt"
+    echo "============================================================================="
+    echo
+}
+
 # Function to display the agreement and prompt for confirmation
 show_agreement() {
+    show_important_notes
     echo "By running this script, you agree to use it responsibly and understand the potential risks."
     read -p "Do you agree to proceed? (yes/no): " response
 
@@ -128,8 +142,9 @@ show_agreement() {
     fi
 }
 
-create_banner
+
 show_agreement
+create_banner
 
 
 
