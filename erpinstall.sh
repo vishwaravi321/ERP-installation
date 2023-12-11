@@ -34,7 +34,7 @@ script(){
     nvm alias default $node_version
 
     printf "\033[38;2;255;0;255mInstalling Dependencies\033[0m\n"
-    sudo apt install -y curl python3-dev python3-setuptools python3-pip virtualenv libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
+    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
 
     printf "\033[38;2;255;0;255mInstalling Yarn \033[0m\n"
     sudo npm install -g yarn 
@@ -116,17 +116,17 @@ create_banner() {
 }
 
 show_important_notes() {
-    echo "============================================================================="
-    echo "⚠️⚠️ Important Notes ⚠️⚠️"
-    echo "This script uses 'sudo' for certain operations."
-    echo "Review the script before execution."
-    echo "Use with caution."
-    echo "Ensure that you have the necessary permissions to execute the script."
-    echo "This scipt has interactive mode."
-    echo "Please read and understand every prompt"
-    echo "============================================================================="
-    echo
+    printf "\e[1;31m=============================================================================\n"
+    printf "⚠️⚠️ Important Notes ⚠️⚠️\n"
+    printf "This script uses 'sudo' for certain operations.\n"
+    printf "Review the script before execution.\n"
+    printf "Use with caution.\n"
+    printf "Ensure that you have the necessary permissions to execute the script.\n"
+    printf "This script has interactive mode.\n"
+    printf "Please read and understand every prompt\e[0m\n"
+    printf "\e[1;31m=============================================================================\n\n\e[0m"
 }
+
 
 # Function to display the agreement and prompt for confirmation
 show_agreement() {
