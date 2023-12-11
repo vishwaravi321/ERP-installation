@@ -75,9 +75,13 @@ script(){
                             printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
                             for i in $(echo "$apps" | sed 's/,/ /g');
                             do
-                                read -p "Version for $i(please don't make any spell mistake):" app_branch
+                                if [[ $apps == 'erpnext' || $apps == 'hrms' || $apps == 'payments']]; then
+                                    $app_branch=$frappe_version
+                                else
+                                    read -p "Version for $i(please don't make any spell mistake):" app_branch
+                                fi
                                 printf "\033[38;2;255;0;255mGetting $i with branch $app_branch\033[0m\n"
-                                cd $full_bench_dir && bench get-app $i --branch $app
+                                cd $full_bench_dir && bench get-app $i --branch $app_branch
                                 printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
                             done
                             printf "\033[38;2;255;0;255mFinished Additional Apps\033[0m\n"
