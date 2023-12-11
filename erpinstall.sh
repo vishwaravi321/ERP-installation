@@ -75,7 +75,7 @@ script(){
                             printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
                             for i in $(echo "$apps" | sed 's/,/ /g');
                             do
-                                if [[ $apps == 'erpnext' || $apps == 'hrms' || $apps == 'payments']]; then
+                                if [[ $apps == 'erpnext' || $apps == 'hrms' || $apps == 'payments' ]]; then
                                     $app_branch=$frappe_version
                                 else
                                     read -p "Version for $i(please don't make any spell mistake):" app_branch
