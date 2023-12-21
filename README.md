@@ -19,6 +19,10 @@ Before running the script, make sure you have the following:
 - Ubuntu 22.04 or Later
 - Internet connection.
 - [git](https://git-scm.com/) installed.
+- Have Successful connection on the browser for the following:
+```
+https://raw.githubusercontent.com/creationix/nvm/master/install.sh
+```
 
 ## Usage
 

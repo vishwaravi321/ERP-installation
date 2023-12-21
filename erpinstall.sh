@@ -14,7 +14,7 @@ script(){
     sudo apt upgrade -y  
 
     printf "\033[38;2;255;0;255mInstalling Dependencies\033[0m\n"
-    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
+    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv fali2ban libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
 
 
     printf "\033[38;2;255;0;255mInstalling nvm\033[0m\n"
@@ -95,6 +95,7 @@ script(){
                         printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
                         sudo chown -R $USER:$USER /home/$USER
                         sudo chmod -R 755 /home/$USER
+                        cd $full_bench_dir && sudo bench setup production $USER
                         break
                     else
                             printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
