@@ -51,6 +51,10 @@ script(){
     printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
     sudo service mysql restart
 
+    printf "\033[38;2;255;0;255mPurging Unwanted Packages\033[0m\n"
+    sudo apt autopurge
+
+
     printf "\033[38;2;255;0;255mInit bench\033[0m\n"
     while true;do
         read -p "Please provide the absolute path for frappe DIR[NOTE: Don't forget to add / in the end](default: /home/$USER/) :" frappe_dir
