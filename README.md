@@ -16,32 +16,36 @@ By running this script, you agree to use it responsibly and understand the poten
 
 Before running the script, make sure you have the following:
 
-- Linux environment.
+- Ubuntu 22.04 or Later
 - Internet connection.
-- [curl](https://curl.se/) installed.
 - [git](https://git-scm.com/) installed.
 
 ## Usage
 
-1. Clone the repository or download the script:
+1. Install Git(Skip if already installed):
+   ```
+   sudo apt install git
+   ```
+
+2. Clone the repository or download the script:
 
    ```bash
    git clone https://github.com/vishwaravi321/ERP-installation.git
    ```
 
-2. Navigate to the script directory:
+3. Navigate to the script directory:
 
    ```bash
    cd ERP-installation
    ```
 
-3. Run the script:
+4. Run the script:
 
    ```bash
    bash erpinstall.sh
    ```
 
-4. Follow the on-screen prompts and agree to the terms.
+5. Follow the on-screen prompts and agree to the terms.
 
 ## ⚠️⚠️Important Notes ⚠️⚠️
 
