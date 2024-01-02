@@ -45,8 +45,14 @@ script(){
     printf "\033[38;2;255;0;255mMysql_secure_installation\033[0m\n"
     sudo mysql_secure_installation
 
-    printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
-    cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
+
+    if [[ -e .mariadb_conf_success.txt ]]; then
+        printf "\033[38;2;255;0;255mmysql.config already exist\033[0m\n"
+        printf "\033[38;2;255;0;255mSkipping mysql.config\033[0m\n"
+    else
+        printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
+        cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
+        touch .mariadb_conf_success.txt
 
     printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
     sudo service mysql restart
@@ -95,13 +101,12 @@ script(){
                         printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
                         sudo chown -R $USER:$USER /home/$USER
                         sudo chmod -R 755 /home/$USER
-                        cd $full_bench_dir && sudo bench setup production $USER
                         break
                     else
-                            printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
+                        printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
                     fi
             done 
-            printf "\033[38;2;255;0;255mPlease use 'cd $full_bench_dir && sudo bench setup production $USER' before creating a site\033[0m\n"
+            printf "\033[38;2;255;0;255mPlease use 'cd $full_bench_dir && sudo bench setup production $USER' for production usage\033[0m\n"
             printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
             break       
         else
@@ -145,11 +150,22 @@ show_agreement() {
     read -p "Do you agree to proceed? (yes/no): " response
 
     if [[ "$response" == "yes" ]]; then
-        script
+        check_version
     else
         echo "Script execution aborted."
         exit 1
     fi
+}
+
+check_version(){
+    UBUNTU_VERSION=$(cat /etc/os-release | grep VERSION_ID | cut -d "=" -f 2 | sed 's/"/ /g')
+    if [ $(echo "$ver >= 22.04" | bc -l) -eq 1 ]; then
+        script
+    else
+        printf "\033[38;2;255;0;255mUbuntu Not Compatable.\033[0m\n"
+        printf "\033[38;2;255;0;255mAborted\033[0m\n"
+
+fi
 }
 
 
