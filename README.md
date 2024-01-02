@@ -10,7 +10,7 @@ By running this script, you agree to use it responsibly and understand the poten
 ## Author
 
 - **Author:** VISHWA R
-- **License:** MIT License
+- **License:** GPL-3.0 license
 
 ## Prerequisites
 
