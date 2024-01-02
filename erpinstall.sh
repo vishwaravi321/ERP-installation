@@ -27,8 +27,8 @@ script(){
     source ~/.bashrc
 
     printf "\033[38;2;255;0;255mInstalling Node LTS\033[0m\n"
-    nvm install --lts
-    nvm use --lts
+    nvm install 18
+    nvm use 18
 
     node_version=$(node --version)
     printf "\033[38;2;255;0;255mSetting $node_version as Default\033[0m\n"
@@ -113,7 +113,7 @@ script(){
 # Function to display author and license information in a banner
 show_info() {
     echo "Author: VISHWA R"
-    echo "License: MIT License"
+    echo "License: GPL-3.0 license"
 }
 
 # Function to create a simple banner with author and license information
