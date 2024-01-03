@@ -158,16 +158,17 @@ show_agreement() {
     fi
 }
 
-check_version(){
+check_version() {
     UBUNTU_VERSION=$(cat /etc/os-release | grep VERSION_ID | cut -d "=" -f 2 | sed 's/"/ /g')
-    if [ $(echo "$ver >= 22.04" | bc -l) -eq 1 ]; then
+    
+    if [ "$(echo "$UBUNTU_VERSION >= 22.04" | bc -l)" -eq 1 ]; then
         script
     else
-        printf "\033[38;2;255;0;255mUbuntu Not Compatable.\033[0m\n"
+        printf "\033[38;2;255;0;255mUbuntu Not Compatible.\033[0m\n"
         printf "\033[38;2;255;0;255mAborted\033[0m\n"
-
-fi
+    fi
 }
+
 
 
 show_agreement
