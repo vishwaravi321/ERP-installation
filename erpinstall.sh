@@ -53,6 +53,7 @@ script(){
         printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
         cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
         touch .mariadb_conf_success.txt
+    fi
 
     printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
     sudo service mysql restart
