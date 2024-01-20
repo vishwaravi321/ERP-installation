@@ -14,7 +14,7 @@ script(){
     sudo apt upgrade -y  
 
     printf "\033[38;2;255;0;255mInstalling Dependencies\033[0m\n"
-    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv fail2ban libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
+    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv fail2ban libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server supervisor
 
 
     printf "\033[38;2;255;0;255mInstalling nvm\033[0m\n"
