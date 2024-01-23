@@ -37,19 +37,17 @@ script(){
 
 
     printf "\033[38;2;255;0;255mInstalling Yarn \033[0m\n"
-    sudo npm install -g yarn 
+    npm install -g yarn 
 
     printf "\033[38;2;255;0;255mInstalling frappe-bench using pip\033[0m\n"
     sudo -H pip3 install frappe-bench
 
-    printf "\033[38;2;255;0;255mMysql_secure_installation\033[0m\n"
-    sudo mysql_secure_installation
-
-
     if [[ -e .mariadb_conf_success.txt ]]; then
         printf "\033[38;2;255;0;255mmysql.config already exist\033[0m\n"
-        printf "\033[38;2;255;0;255mSkipping mysql.config\033[0m\n"
+        printf "\033[38;2;255;0;255mSkipping mysql\033[0m\n"
     else
+        printf "\033[38;2;255;0;255mMysql_secure_installation\033[0m\n"
+        sudo mysql_secure_installation
         printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
         cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
         touch .mariadb_conf_success.txt
