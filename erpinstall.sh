@@ -14,7 +14,7 @@ script(){
     sudo apt upgrade -y  
 
     printf "\033[38;2;255;0;255mInstalling Dependencies\033[0m\n"
-    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv fail2ban libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server npm supervisor
+    sudo apt install -y curl nginx python3-dev python3-setuptools python3-pip virtualenv fail2ban libmysqlclient-dev redis-server xvfb libfontconfig wkhtmltopdf python3-pip software-properties-common lolcat python3.10-venv mariadb-server supervisor
 
 
     printf "\033[38;2;255;0;255mInstalling nvm\033[0m\n"
@@ -37,16 +37,21 @@ script(){
 
 
     printf "\033[38;2;255;0;255mInstalling Yarn \033[0m\n"
-    sudo npm install -g yarn 
+    npm install -g yarn 
 
     printf "\033[38;2;255;0;255mInstalling frappe-bench using pip\033[0m\n"
     sudo -H pip3 install frappe-bench
 
-    printf "\033[38;2;255;0;255mMysql_secure_installation\033[0m\n"
-    sudo mysql_secure_installation
-
-    printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
-    cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
+    if [[ -e ~/.mariadb_conf_success.txt ]]; then
+        printf "\033[38;2;255;0;255mmysql.config already exist\033[0m\n"
+        printf "\033[38;2;255;0;255mSkipping mysql\033[0m\n"
+    else
+        printf "\033[38;2;255;0;255mMysql_secure_installation\033[0m\n"
+        sudo mysql_secure_installation
+        printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
+        cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
+        touch ~/.mariadb_conf_success.txt
+    fi
 
     printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
     sudo service mysql restart
@@ -95,13 +100,13 @@ script(){
                         printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
                         sudo chown -R $USER:$USER /home/$USER
                         sudo chmod -R 755 /home/$USER
-                        cd $full_bench_dir && sudo bench setup production $USER
                         break
                     else
-                            printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
+                        printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
                     fi
             done 
-            printf "\033[38;2;255;0;255mPlease use 'cd $full_bench_dir && sudo bench setup production $USER' before creating a site\033[0m\n"
+            printf "\033[38;2;255;0;255mPlease use 'source ~/.bashrc' or logout then login for further use\033[0m\n"
+            printf "\033[38;2;255;0;255mPlease use 'cd $full_bench_dir && sudo bench setup production $USER' for production usage\033[0m\n"
             printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
             break       
         else
@@ -145,12 +150,24 @@ show_agreement() {
     read -p "Do you agree to proceed? (yes/no): " response
 
     if [[ "$response" == "yes" ]]; then
-        script
+        check_version
     else
         echo "Script execution aborted."
         exit 1
     fi
 }
+
+check_version() {
+    UBUNTU_VERSION=$(cat /etc/os-release | grep VERSION_ID | cut -d "=" -f 2 | sed 's/"/ /g')
+    
+    if [ "$(echo "$UBUNTU_VERSION >= 22.04" | bc -l)" -eq 1 ]; then
+        script
+    else
+        printf "\033[38;2;255;0;255mUbuntu Not Compatible.\033[0m\n"
+        printf "\033[38;2;255;0;255mAborted\033[0m\n"
+    fi
+}
+
 
 
 show_agreement
