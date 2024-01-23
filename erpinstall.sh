@@ -105,6 +105,7 @@ script(){
                         printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
                     fi
             done 
+            printf "\033[38;2;255;0;255mPlease use 'source ~/.bashrc' or logout then login for further use\033[0m\n"
             printf "\033[38;2;255;0;255mPlease use 'cd $full_bench_dir && sudo bench setup production $USER' for production usage\033[0m\n"
             printf "\033[38;2;255;0;255mEnjoy :)\033[0m\n"
             break       
