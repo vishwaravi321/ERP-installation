@@ -42,7 +42,7 @@ script(){
     printf "\033[38;2;255;0;255mInstalling frappe-bench using pip\033[0m\n"
     sudo -H pip3 install frappe-bench
 
-    if [[ -e .mariadb_conf_success.txt ]]; then
+    if [[ -e ~/.mariadb_conf_success.txt ]]; then
         printf "\033[38;2;255;0;255mmysql.config already exist\033[0m\n"
         printf "\033[38;2;255;0;255mSkipping mysql\033[0m\n"
     else
@@ -50,7 +50,7 @@ script(){
         sudo mysql_secure_installation
         printf "\033[38;2;255;0;255mConfiguring my.cnf\033[0m\n"
         cat sql_my.cnf | sudo tee -a /etc/mysql/mariadb.conf.d/50-server.cnf
-        touch .mariadb_conf_success.txt
+        touch ~/.mariadb_conf_success.txt
     fi
 
     printf "\033[38;2;255;0;255mRestarting mysql\033[0m\n"
