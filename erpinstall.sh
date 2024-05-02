@@ -71,8 +71,8 @@ script(){
             full_bench_dir=$frappe_dir$bench_dir
             printf "\033[38;2;255;0;255mInstalling Bench on $full_bench_dir\033[0m\n"
             while true;do
-                read -p "Please provide the version to init[version-14/version-15](default:version-14):" frappe_version
-                frappe_version=${frappe_version:-version-14}
+                read -p "Please provide the version to init[version-14/version-15](default:version-15):" frappe_version
+                frappe_version=${frappe_version:-version-15}
                     if [[ $frappe_version == 'version-14' || $frappe_version == 'version-15' ]]; then
                         printf "\033[38;2;255;0;255mYou have choosen $frappe_version\033[0m\n"
                         bench init $full_bench_dir --frappe-branch $frappe_version
@@ -84,11 +84,7 @@ script(){
                             printf "\033[38;2;255;0;255mHas Additional Apps \033[0m\n"
                             for i in $(echo "$apps" | sed 's/,/ /g');
                             do
-                                if [[ $apps == 'erpnext' || $apps == 'hrms' || $apps == 'payments' ]]; then
-                                    $app_branch=$frappe_version
-                                else
-                                    read -p "Version for $i(please don't make any spell mistake):" app_branch
-                                fi
+                                read -p "Version for $i(please don't make any spell mistake):" app_branch
                                 printf "\033[38;2;255;0;255mGetting $i with branch $app_branch\033[0m\n"
                                 cd $full_bench_dir && bench get-app $i --branch $app_branch
                                 printf "\033[38;2;255;0;255mCompleted $i\033[0m\n"
@@ -100,6 +96,14 @@ script(){
                         printf "\033[38;2;255;0;255mChanging Permissions\033[0m\n"
                         sudo chown -R $USER:$USER /home/$USER
                         sudo chmod -R 755 /home/$USER
+                        printf "\033[38;2;255;0;255mSetting Redis\033[0m\n"
+                        cd $full_bench_dir && bench setup redis
+                        printf "\033[38;2;255;0;255mSetting SocketIO\033[0m\n"
+                        cd $full_bench_dir && bench setup socketio
+                        printf "\033[38;2;255;0;255mSetting Supervisor\033[0m\n"
+                        cd $full_bench_dir && bench setup supervisor
+                        printf "\033[38;2;255;0;255mSetting Nginx\033[0m\n"
+                        cd $full_bench_dir && bench setup nginx --log_format ''
                         break
                     else
                         printf "\033[38;2;255;0;255mPlease provide a valid version to install\033[0m\n"
